@@ -15,14 +15,14 @@ pub fn fibonacci(n: u32) -> u32 {
     //
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    let mut a = 0;
-    let mut b = 1;
+    let mut fib_curr = 0;
+    let mut fib_next = 1;
     for _ in 0..n {
-        let next = a + b;
-        a = b;
-        b = next;
+        let next = fib_curr + fib_next;
+        fib_curr = fib_next;
+        fib_next = next;
     }
-    a
+    fib_curr
 
 
     // let n = n as usize;            // 1. 统一转成 usize
