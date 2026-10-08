@@ -17,7 +17,7 @@ impl TryFrom<String> for Status {
             "todo" => Ok(Self::ToDo),
             "inprogress" => Ok(Self::InProgress),
             "done" => Ok(Self::Done),
-            _ => Err("{value} is invalid. Use todo, inprogess, done".to_string())
+            _ => Err(format!("{value} is invalid. Use todo, inprogess, done"))
         }
     }
 }
