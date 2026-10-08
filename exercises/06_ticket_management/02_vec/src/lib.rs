@@ -6,7 +6,7 @@
 // - The second number of the sequence is 1.
 // - Every subsequent number is the sum of the two preceding numbers.
 //
-// So the sequence goes: 0, 1, 1, 2, 3, 5, 8, 13, 21, and so on.
+// So the sequence goes: 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55 and so on.
 //
 // We expect `fibonacci(0)` to return `0`, `fibonacci(1)` to return `1`,
 // `fibonacci(2)` to return `1`, and so on.
@@ -15,7 +15,26 @@ pub fn fibonacci(n: u32) -> u32 {
     //
     // Hint: use a `Vec` to memoize the results you have already calculated
     // so that you don't have to recalculate them several times.
-    todo!()
+    let mut a = 0;
+    let mut b = 1;
+    for _ in 0..n {
+        let next = a + b;
+        a = b;
+        b = next;
+    }
+    a
+
+
+    // let n = n as usize;            // 1. 统一转成 usize
+    // let mut acc = vec![0u32; n + 1]; // vec![元素; 长度]：长度必须 usize
+    // acc[0] = 0;
+    // if n > 0 {                     // 2. 边界：n=0 时没地方写 acc[1]
+    //     acc[1] = 1;
+    // }
+    // for i in 2..=n {
+    //     acc[i] = acc[i - 1] + acc[i - 2];
+    // }
+    // acc[n]
 }
 
 #[cfg(test)]
