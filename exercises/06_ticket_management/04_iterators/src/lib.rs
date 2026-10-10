@@ -13,6 +13,20 @@ pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
 
+impl IntoIterator for TicketStore {
+    type Item = Ticket;
+    type IntoIter = std::vec::IntoIter<Ticket>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.tickets.into_iter()
+    }
+}
+
+// for ticket in store { ... }
+// // 编译器实际翻译成：
+// let mut iter = store.into_iter();
+// while let Some(ticket) = iter.next() { ... }
+
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
     pub title: TicketTitle,

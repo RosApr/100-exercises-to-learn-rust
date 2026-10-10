@@ -11,10 +11,17 @@ use ticket_fields::{TicketDescription, TicketTitle};
 #[derive(Clone)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
+    next_id: u64
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct TicketId(u64);
+
+impl TicketId {
+    pub fn new(id: u64) -> Self {
+        Self (id)
+    }
+}
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Ticket {
@@ -41,11 +48,28 @@ impl TicketStore {
     pub fn new() -> Self {
         Self {
             tickets: Vec::new(),
+            next_id: 0
         }
     }
 
-    pub fn add_ticket(&mut self, ticket: Ticket) {
-        self.tickets.push(ticket);
+    pub fn generate_id(&mut self) -> TicketId {
+        self.next_id += 1;
+        TicketId::new(self.next_id)
+    }
+
+    pub fn add_ticket(&mut self, ticket: TicketDraft) -> TicketId {
+        let ticket_id = self.generate_id();
+        self.tickets.push(Ticket {
+            title: ticket.title,
+            description: ticket.description,
+            id: ticket_id,
+            status: Status::ToDo
+        });
+        ticket_id
+    }
+
+    pub fn get(&self, id: TicketId) -> Option<&Ticket> {
+        self.tickets.iter().find(|t| t.id == id)
     }
 }
 
