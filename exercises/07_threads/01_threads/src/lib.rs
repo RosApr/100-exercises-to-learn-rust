@@ -15,7 +15,11 @@
 use std::thread;
 
 pub fn sum(v: Vec<i32>) -> i32 {
-    todo!()
+    let mut v = v;
+    let right = v.split_off(v.len() / 2);
+    let left_sum =thread::spawn(move || v.iter().sum::<i32>());
+    let right_sum = thread::spawn(move || right.iter().sum::<i32>());
+    left_sum.join().unwrap() + right_sum.join().unwrap()
 }
 
 #[cfg(test)]
